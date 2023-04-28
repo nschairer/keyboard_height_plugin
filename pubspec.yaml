@@ -1,6 +1,6 @@
 name: keyboard_height_plugin
 description: Flutter plugin that emits keyboard height before it shows (ios/android)
-version: 0.0.2
+version: 0.0.3
 repository: https://github.com/nschairer/keyboard_height_plugin
 
 environment:
