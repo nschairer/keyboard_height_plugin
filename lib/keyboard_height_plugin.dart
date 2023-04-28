@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 typedef KeyboardHeightCallback = void Function(double height);
 
 class KeyboardHeightPlugin {
-    static const EventChannel _keyboardHeightEventChannel = const EventChannel('keyboardHeightEventChannel');
+    static const EventChannel _keyboardHeightEventChannel = EventChannel('keyboardHeightEventChannel');
 
     StreamSubscription? _keyboardHeightSubscription;
 
