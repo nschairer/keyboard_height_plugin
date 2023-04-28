@@ -10,3 +10,7 @@
 
 * More documentation.
 
+## 0.0.4
+
+* N/A
+
