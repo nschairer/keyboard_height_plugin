@@ -8,7 +8,7 @@ To install `keyboard_height_plugin`, add it to your `pubspec.yaml` file under th
 
 ```yaml
 dependencies:
-  keyboard_height_plugin: ^0.0.4
+  keyboard_height_plugin: ^0.0.5
 ```
 
 ## Usage
