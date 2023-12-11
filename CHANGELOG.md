@@ -14,3 +14,7 @@
 
 * N/A
 
+## 0.0.5
+
+* Support for AGP 8.0.0
+
