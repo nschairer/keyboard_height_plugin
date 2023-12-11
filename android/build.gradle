@@ -43,4 +43,7 @@ android {
     defaultConfig {
         minSdkVersion 16
     }
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.nschairer.keyboard_height_plugin'
+    }
 }
