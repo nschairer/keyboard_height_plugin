@@ -31,10 +31,10 @@ class KeyboardHeightPlugin : FlutterPlugin, EventChannel.StreamHandler, Activity
                 rootView.getWindowVisibleDisplayFrame(r)
 
                 val screenHeight = rootView.height
-                var navigationBarHeight = getNavigationBarHeight();
-                val keypadHeight = screenHeight - r.bottom
+                val navigationBarHeight = getNavigationBarHeight();
+                var keypadHeight = screenHeight - r.bottom
                 if (isNavigationBarVisible()) {
-                    keypadHeight -= navigationBarHeight
+                    keypadHeight = keypadHeight - navigationBarHeight
                 }
                 val displayMetrics = activityPluginBinding?.activity?.resources?.displayMetrics
                 val logicalKeypadHeight = keypadHeight / (displayMetrics?.density ?: 1f)
@@ -62,7 +62,7 @@ class KeyboardHeightPlugin : FlutterPlugin, EventChannel.StreamHandler, Activity
     }
 
     private fun isNavigationBarVisible(): Boolean {
-        val uiOptions = window.decorView.systemUiVisibility
+        val uiOptions = activityPluginBinding?.activity?.window?.decorView.systemUiVisibility
         val isImmersiveModeEnabled = uiOptions or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION == uiOptions
         return !isImmersiveModeEnabled
     }
