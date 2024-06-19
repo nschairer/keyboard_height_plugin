@@ -31,7 +31,7 @@ class KeyboardHeightPlugin : FlutterPlugin, EventChannel.StreamHandler, Activity
                 rootView.getWindowVisibleDisplayFrame(r)
 
                 val screenHeight = rootView.height
-                val keypadHeight = screenHeight - r.bottom - getNavigationBarHeight()
+                val keypadHeight = screenHeight - r.bottom
 
                 val displayMetrics = activityPluginBinding?.activity?.resources?.displayMetrics
                 val logicalKeypadHeight = keypadHeight / (displayMetrics?.density ?: 1f)
