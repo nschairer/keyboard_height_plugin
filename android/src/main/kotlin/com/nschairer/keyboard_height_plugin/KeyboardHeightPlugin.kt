@@ -1,7 +1,9 @@
 package com.nschairer.keyboard_height_plugin
 import android.graphics.Rect
+import android.os.Build
 import androidx.annotation.NonNull
 import android.view.ViewTreeObserver
+import androidx.annotation.RequiresApi
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -31,8 +33,11 @@ class KeyboardHeightPlugin : FlutterPlugin, EventChannel.StreamHandler, Activity
                 rootView.getWindowVisibleDisplayFrame(r)
 
                 val screenHeight = rootView.height
-                val keypadHeight = screenHeight - r.bottom - getNavigationBarHeight()
-
+                val navigationBarHeight = getNavigationBarHeight();
+                var keypadHeight = screenHeight - r.bottom
+                if (isNavigationBarVisible()) {
+                    keypadHeight -= navigationBarHeight
+                }
                 val displayMetrics = activityPluginBinding?.activity?.resources?.displayMetrics
                 val logicalKeypadHeight = keypadHeight / (displayMetrics?.density ?: 1f)
 
@@ -58,6 +63,17 @@ class KeyboardHeightPlugin : FlutterPlugin, EventChannel.StreamHandler, Activity
         }
     }
 
+    private fun isNavigationBarVisible(): Boolean {
+        val decorView = activityPluginBinding?.activity?.window?.decorView
+        val rootWindowInsets = decorView?.rootWindowInsets ?: return false
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            rootWindowInsets.isVisible(android.view.WindowInsets.Type.navigationBars())
+        } else {
+            val systemWindowInsetBottom = rootWindowInsets.systemWindowInsetBottom
+            systemWindowInsetBottom > 0
+        }
+    }
+    
     // Implement ActivityAware methods
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         activityPluginBinding = binding
