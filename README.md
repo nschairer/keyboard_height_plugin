@@ -24,7 +24,7 @@ Next, create a stateful widget and declare a variable to store the keyboard heig
 ```dart
 class _HomePageState extends State<HomePage>; {
   double _keyboardHeight = 0;
-  final KeyboardHeightPlugin _keyboardHeightPlugin = KeyboardHeightPlugin();
+  StreamSubscription<double>? _keyboardHeightSubscription;
   // ... rest of code ...
 }
 ```
@@ -32,15 +32,22 @@ class _HomePageState extends State<HomePage>; {
 Then, initialize the `KeyboardHeightPlugin` in your `initState` method and listen for changes in the keyboard height:
 
 ```dart
-@override
-void initState() {
-  super.initState();
-  _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
-    setState(() {
-      _keyboardHeight = height;
+  @override
+  void initState() {
+    super.initState();
+    _keyboardHeightSubscription =
+        KeyboardHeightPlugin.sharedInstance.keyboardHeight.listen((height) {
+        setState(() {
+          _keyboardHeight = height;
+        });
     });
-  });
-}
+  }
+
+  @override
+  void dispose() {
+    _keyboardHeightSubscription?.cancel();
+    super.dispose();
+  }
 ```
 
 Use the `_keyboardHeight` variable to position your widgets around the keyboard. 
