@@ -1,28 +1,23 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/services.dart';
 
-typedef KeyboardHeightCallback = void Function(double height);
-
 class KeyboardHeightPlugin {
-    static const EventChannel _keyboardHeightEventChannel = EventChannel('keyboardHeightEventChannel');
+  static const sharedInstance = KeyboardHeightPlugin._();
 
-    StreamSubscription? _keyboardHeightSubscription;
+  const KeyboardHeightPlugin._();
 
-
-    void onKeyboardHeightChanged(KeyboardHeightCallback callback) {
-        if (_keyboardHeightSubscription != null) {
-            _keyboardHeightSubscription!.cancel();
-        }
-        _keyboardHeightSubscription = _keyboardHeightEventChannel
-        .receiveBroadcastStream()
-        .listen((dynamic height) {
-            callback(height as double);
-        });
+  Stream<double> get keyboardHeight {
+    if (Platform.isIOS || Platform.isAndroid) {
+      const keyboardHeightEventChannel =
+          EventChannel('keyboardHeightEventChannel');
+      return keyboardHeightEventChannel
+          .receiveBroadcastStream()
+          .map((dynamic height) => height as double);
+    } else {
+      // For all non-implemented platforms, we return a
+      // Stream that indicates a closed keyboard
+      return Stream.value(0);
     }
-
-    void dispose() {
-        if (_keyboardHeightSubscription != null) {
-            _keyboardHeightSubscription!.cancel();
-        }
-    }
+  }
 }
