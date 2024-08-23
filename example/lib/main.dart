@@ -1,76 +1,76 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:keyboard_height_plugin/keyboard_height_plugin.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: HomePage(),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   double _keyboardHeight = 0;
-  final KeyboardHeightPlugin _keyboardHeightPlugin = KeyboardHeightPlugin();
+
+  StreamSubscription<double>? _keyboardHeightSubscription;
 
   @override
   void initState() {
     super.initState();
-    _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
-      setState(() {
-        _keyboardHeight = height;
-      });
+    _keyboardHeightSubscription =
+        KeyboardHeightPlugin.sharedInstance.keyboardHeight.listen((height) {
+      if (context.mounted) {
+        setState(() {
+          _keyboardHeight = height;
+        });
+      }
     });
   }
 
   @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: Text('Keyboard Height'),
+  void dispose() {
+    _keyboardHeightSubscription?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Keyboard Height'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Keyboard height: $_keyboardHeight'),
+            const SizedBox(height: 16),
+            const TextField(
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.orange,
+                hintText: 'Type here to open keyboard',
+              ),
+            )
+          ],
         ),
-        body: Center(
-            child: Stack(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Keyboard height: $_keyboardHeight',
-                    ),
-                    SizedBox(height: 16),
-                    ElevatedButton(
-                      child: Text('Get Keyboard Height'),
-                      onPressed: () => {},
-                    ),
-                  ],
-                ),
-                Positioned(
-                  bottom: _keyboardHeight,
-                  left: 0,
-                  right: 0,
-                  child: TextField(
-                    decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.orange,
-                      hintText: 'Type here to open keyboard',
-                    ),
-                  ),
-                ),
-              ],
-          ),
-        ),
-      );
-    }
+      ),
+    );
+  }
 }
