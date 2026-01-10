@@ -11,16 +11,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:keyboard_height_plugin_example/main.dart';
 
 void main() {
-  testWidgets('Verify Platform version', (WidgetTester tester) async {
+  testWidgets('Verify keyboard height display', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    // Verify that platform version is retrieved.
+    // Verify that keyboard height text is displayed.
     expect(
-      find.byWidgetPredicate(
-        (Widget widget) => widget is Text &&
-                           widget.data!.startsWith('Running on:'),
-      ),
+      find.text('Keyboard height: 0.0'),
+      findsOneWidget,
+    );
+
+    // Verify that the button is present.
+    expect(
+      find.text('Get Keyboard Height'),
       findsOneWidget,
     );
   });
