@@ -28,6 +28,7 @@ if (flutterVersionName == null) {
 }
 
 android {
+    namespace "com.nschairer.keyboard_height_plugin_example"
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
