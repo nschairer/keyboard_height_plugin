@@ -2,13 +2,39 @@
 
 `keyboard_height_plugin` is a Flutter plugin for iOS and Android that provides the keyboard size before the keyboard animation occurs for showing or hiding it. This helps eliminate lag when positioning widgets around the keyboard, such as placing a TextField above the keyboard.
 
+## Requirements
+
+### Version 0.2.0+ (Current)
+- **Android:**
+  - Android Gradle Plugin (AGP) 8.6.0+
+  - Gradle 8.7+
+  - Kotlin 2.1.0+
+  - Java 17+
+  - minSdkVersion 16 (Android 4.1+)
+  - compileSdkVersion 34+
+- **iOS:**
+  - iOS 9.0+
+  - Includes Privacy Manifest for App Store compliance
+
+### Version 0.1.5 (Legacy Support)
+For projects that cannot upgrade to the modern build tools, use version 0.1.5:
+- Android Gradle Plugin 7.x
+- Kotlin 1.7.x
+- Java 11+
+
 ## Installation
 
 To install `keyboard_height_plugin`, add it to your `pubspec.yaml` file under the `dependencies` section:
 
 ```yaml
 dependencies:
-  keyboard_height_plugin: ^0.1.5
+  keyboard_height_plugin: ^0.2.0
+```
+
+**For legacy projects:**
+```yaml
+dependencies:
+  keyboard_height_plugin: 0.1.5
 ```
 
 ## Usage
