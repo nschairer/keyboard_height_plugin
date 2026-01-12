@@ -24,8 +24,6 @@ migrate_working_dir/
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
-**/ios/Flutter/Debug.xcconfig
-**/ios/Flutter/Release.xcconfig
 **/ios/Flutter/flutter_export_environment.sh
 .dart_tool/
 .flutter-plugins
@@ -34,7 +32,6 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-pubspec.lock
 
 # Android related
 *.zip
