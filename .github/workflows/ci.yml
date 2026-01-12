@@ -96,4 +96,3 @@ jobs:
       - name: Build iOS (no codesign)
         working-directory: example
         run: flutter build ios --debug --no-codesign
-        continue-on-error: true
