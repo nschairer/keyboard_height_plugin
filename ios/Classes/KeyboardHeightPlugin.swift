@@ -26,11 +26,13 @@ public class KeyboardHeightPlugin: NSObject, FlutterPlugin, FlutterStreamHandler
   private func registerKeyboardObservers() {
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
   }
 
   private func unregisterKeyboardObservers() {
     NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
   }
 
   @objc private func keyboardWillShow(notification: NSNotification) {
@@ -42,6 +44,13 @@ public class KeyboardHeightPlugin: NSObject, FlutterPlugin, FlutterStreamHandler
 
   @objc private func keyboardWillHide(notification: NSNotification) {
     eventSink?(NSNumber(value: 0.0))
+  }
+    
+  @objc private func keyboardWillChangeFrame(notification: NSNotification) {
+    if let userInfo = notification.userInfo,
+       let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+      eventSink?(NSNumber(value: keyboardFrame.height))
+    }
   }
 }
 
