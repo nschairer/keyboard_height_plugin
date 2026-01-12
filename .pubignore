@@ -1,0 +1,5 @@
+example/ios/Flutter/Debug.xcconfig
+example/ios/Flutter/Release.xcconfig
+example/ios/Flutter/flutter_export_environment.sh
+example/pubspec.lock
+example/**/*.zip
