@@ -4,7 +4,7 @@
 
 ## Requirements
 
-### Version 0.2.0+ (Current)
+### Version 0.3.0+ (Current)
 - **Android:**
   - Android Gradle Plugin (AGP) 8.6.0+
   - Gradle 8.7+
@@ -13,7 +13,8 @@
   - minSdkVersion 16 (Android 4.1+)
   - compileSdkVersion 34+
 - **iOS:**
-  - iOS 9.0+
+  - iOS 12.0+
+  - Supports both CocoaPods and Swift Package Manager
   - Includes Privacy Manifest for App Store compliance
 
 ### Version 0.1.5 (Legacy Support)
@@ -28,7 +29,7 @@ To install `keyboard_height_plugin`, add it to your `pubspec.yaml` file under th
 
 ```yaml
 dependencies:
-  keyboard_height_plugin: ^0.2.0
+  keyboard_height_plugin: ^0.3.0
 ```
 
 **For legacy projects:**

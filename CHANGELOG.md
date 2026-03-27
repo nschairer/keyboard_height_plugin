@@ -1,3 +1,11 @@
+## 0.3.0
+
+### iOS Updates
+* Add Swift Package Manager support (fixes #17)
+  * Flutter 3.44+ will default to SwiftPM; CocoaPods support is retained for backward compatibility
+  * Added `Package.swift` manifest at `ios/keyboard_height_plugin/`
+  * Source files are symlinked so both CocoaPods and SwiftPM resolve the same code
+
 ## 0.2.0
 
 **BREAKING CHANGES:**
